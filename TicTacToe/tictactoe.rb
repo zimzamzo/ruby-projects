@@ -12,4 +12,8 @@ class TicTacToe
   def play
     puts "game began with #{@x_player.name} as X and #{@o_player.name} as O"
   end
+
+  def choose(player) end
 end
+
+puts TicTacToeBoard.new.won?
