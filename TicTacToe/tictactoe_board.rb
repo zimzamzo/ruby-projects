@@ -14,9 +14,13 @@ class TicTacToeBoard
   attr_accessor :state
 
   def initialize
-    @state = [0, 1, 0, 
-              1, 0, 1, 
-              1, 0, nil]
+    @state = [nil, nil, nil, 
+              nil, nil, nil, 
+              nil, nil, nil]
+  end
+
+  def display
+    p @state
   end
 
   def won?

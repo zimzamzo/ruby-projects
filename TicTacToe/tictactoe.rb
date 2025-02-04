@@ -22,7 +22,8 @@ class TicTacToe
     # @board.state[position] = 1
 
     # puts @board.won?
-    puts @board.outcome?
+    # puts @board.outcome?
+    @x_player.choose_move(@board)
   end
 
   def choose(player) end
