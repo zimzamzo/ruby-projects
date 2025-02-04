@@ -14,7 +14,9 @@ class TicTacToeBoard
   attr_accessor :state
 
   def initialize
-    @state = [nil, nil, nil, 1, 1, nil, nil, nil, nil]
+    @state = [0, 1, 0, 
+              1, 0, 1, 
+              1, 0, nil]
   end
 
   def won?
@@ -26,5 +28,15 @@ class TicTacToeBoard
       end
     end
     false
+  end
+
+  def outcome?
+    if won?
+      0
+    elsif @state.all? { |e| !e.nil? }
+      1
+    else
+      false
+    end
   end
 end
