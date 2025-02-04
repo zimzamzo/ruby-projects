@@ -1,15 +1,15 @@
 # organizes the game, players and the board
 
-require_relative 'Player'
-require_relative 'TicTacToeBoard'
+require_relative 'player'
+require_relative 'tictactoe_board'
 
 class TicTacToe
-  def initialize(x_player, o_player)
-    @x_player = x_player
-    @o_player = o_player
+  def initialize(name1, name2)
+    @x_player = Player.new(name1)
+    @o_player = Player.new(name2)
+  end
+
+  def play
+    puts "game began with #{@x_player.name} as X and #{@o_player.name} as O"
   end
 end
-
-p = Player.new('steve')
-
-puts "their name is #{p.name}"
