@@ -11,8 +11,10 @@ class TicTacToeBoard
                 [0, 4, 8],
                 [2, 4, 6]].freeze
 
+  attr_accessor :state
+
   def initialize
-    @state = [2, nil, nil, nil, 3, nil, nil, nil, 2]
+    @state = [nil, nil, nil, 1, 1, nil, nil, nil, nil]
   end
 
   def won?
