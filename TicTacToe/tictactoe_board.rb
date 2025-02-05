@@ -1,6 +1,6 @@
 # tracks board state, x's and o's
 # also tracks and communicates win states
-require 'pry'
+
 class TicTacToeBoard
   WIN_STATES = [[0, 1, 2],
                 [3, 4, 5],

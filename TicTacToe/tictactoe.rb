@@ -25,6 +25,8 @@ class TicTacToe
       break if @board.outcome?
     end
 
+    @board.display
+    
     outcome = @board.outcome?
 
     puts "Congratulations, #{current_player.name}, you won!" if outcome == 0
