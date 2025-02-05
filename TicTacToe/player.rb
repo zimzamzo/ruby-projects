@@ -1,6 +1,10 @@
 # Represents a player in the game.
 class Player
-  attr_reader :name, :role
+  private
+  attr_reader :role
+  
+  public
+  attr_reader :name
 
   def initialize(name, role)
     @name = name
