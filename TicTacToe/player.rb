@@ -15,7 +15,6 @@ class Player
     position = -1
     position = gets.chomp.to_i until position.between?(1, 9) &&
                                      board.state[position - 1].nil?
-    puts "#{@name}, you selected #{position}"
     board.state[position - 1] = @role
   end
 end

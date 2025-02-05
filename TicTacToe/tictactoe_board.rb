@@ -20,9 +20,15 @@ class TicTacToeBoard
   end
 
   def display
-    puts "#{@state[0].nil? ? '-' : @state[0]} | #{@state[1].nil? ? '-' : @state[1]} | #{@state[2].nil? ? '-' : @state[2]}"
-    puts "#{@state[3].nil? ? '-' : @state[3]} | #{@state[4].nil? ? '-' : @state[4]} | #{@state[5].nil? ? '-' : @state[5]}"
-    puts "#{@state[6].nil? ? '-' : @state[6]} | #{@state[7].nil? ? '-' : @state[7]} | #{@state[8].nil? ? '-' : @state[8]}"
+    puts "#{display_value(@state[0])} | #{display_value(@state[1])} | #{display_value(@state[2])}"
+    puts "#{display_value(@state[3])} | #{display_value(@state[4])} | #{display_value(@state[5])}"
+    puts "#{display_value(@state[6])} | #{display_value(@state[7])} | #{display_value(@state[8])}"
+  end
+
+  def display_value(input)
+    return 'X' if input == 1
+    return 'O' if input == 0
+    return '-' if input.nil?
   end
 
   def won?

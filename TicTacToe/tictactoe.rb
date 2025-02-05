@@ -11,10 +11,10 @@ class TicTacToe
   end
 
   def play
-    puts "game began with #{@x_player.name} as X and #{@o_player.name} as 0"
+    puts "Game began with #{@x_player.name} as X and #{@o_player.name} as 0!"
 
     current_player = nil
-    
+
     9.times do |i|
       # alternate players beginning with x
       current_player = i.even? ? @x_player : @o_player
