@@ -1,13 +1,14 @@
 class Code
   CODE_VALUES = %w[A B C D E F].freeze
+  CODE_LENGTH = 4
 
   attr_accessor :code
 
-  def initialize(arr: [nil])
+  def initialize(arr = nil)
     @code = Array.new(4)
 
     # for empty initializations, make random
-    if arr[0].nil?
+    if arr.nil?
       @code.each_with_index { |_, i| @code[i] = CODE_VALUES.sample }
     
     # otherwise copy in from input values
@@ -26,7 +27,17 @@ class Code
   # if a valid code (includes only code values),
   # returns the code morphed into an array,
   # else returns false
-  def self.validate(arr)
-    arr.all? { |v| CODE_VALUES.include?(v) }
+  def self.validate(string)
+    # translate string to array of uppercase characters
+    arr = string.split('').map { |v| v.upcase }
+
+    return Code.new(arr) if arr.all? { |v| CODE_VALUES.include?(v) } &&
+                            arr.length == CODE_LENGTH
+
+    return false
+  end
+
+  def display
+    p @code
   end
 end
