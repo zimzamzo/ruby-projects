@@ -1,6 +1,8 @@
 class Code
   CODE_VALUES = %w[A B C D E F].freeze
 
+  attr_accessor :code
+
   def initialize(arr: [nil])
     @code = Array.new(4)
 
@@ -19,5 +21,12 @@ class Code
   # and 1 tells correct values but NOT positions
   def feedback(secret_code)
   
+  end
+
+  # if a valid code (includes only code values),
+  # returns the code morphed into an array,
+  # else returns false
+  def self.validate(arr)
+    arr.all? { |v| CODE_VALUES.include?(v) }
   end
 end
