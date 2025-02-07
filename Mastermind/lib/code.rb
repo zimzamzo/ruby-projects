@@ -18,8 +18,10 @@ class Code
 
     end
 
+    # copies unfrozen array
     @frequencies = CODE_VALUES.dup
 
+    # saves how many of each value in code
     @frequencies.map! { |value| @code.count(value) }
   end
 
@@ -30,13 +32,25 @@ class Code
       acc + (value == secret_code.code[index] ? 1 : 0)
     end
 
-    correct_value_only = ''
+    # copies of codes removing exact matches
+    # wpm = without position matches
+    guess_code_wpm = @code.select.with_index { |value, index| value != secret_code.code[index] }
+
+    secret_code_wpm = secret_code.code.select.with_index { |value, index| value != @code[index] }
+
+    # count how many of each value in each code and add least value
+    correct_value_only = CODE_VALUES.dup.reduce(0) do |acc, value|
+      guess_amount = guess_code_wpm.count(value)
+      secret_amount = secret_code_wpm.count(value)
+
+      acc + (guess_amount <= secret_amount ? guess_amount : secret_amount)
+    end
 
     [correct_position_and_value, correct_value_only]
   end
 
-  # if a valid code (includes only code values),
-  # returns the code morphed into an array,
+  # if a valid code string (includes only code values and proper length),
+  # returns the code object,
   # else returns false
   def self.validate(string)
     # translate string to array of uppercase characters

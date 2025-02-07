@@ -10,14 +10,16 @@ class Game
     p @secret_code.code
     codes = ['h7dd8', 'wdd113', 'fedd', '1122', '^$ff', 'john', 'abbe', 'kllm', 'bdcc']
     
-    codes.each { |s| p Code.validate(s) }
+    codes.map { |s| Code.validate(s) }.filter { |v| v }.each { |c| p c.feedback(@secret_code) }
 
-    puts 'Provide a valid code'
-    code_guess = false
+    # puts 'Provide a valid code'
+    # code_guess = false
 
-    code_guess = Code.validate(gets.chomp) until code_guess
+    # code_guess = Code.validate(gets.chomp) until code_guess
 
-    code_guess.display
-    p code_guess.frequencies
+    # code_guess.display
+    # p code_guess.frequencies
+
+    Code.validate('abbe').feedback( Code.validate('beeb'))
   end
 end
