@@ -18,5 +18,6 @@ class Game
     code_guess = Code.validate(gets.chomp) until code_guess
 
     code_guess.display
+    p code_guess.frequencies
   end
 end
