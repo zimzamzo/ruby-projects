@@ -4,6 +4,7 @@ require_relative 'code'
 class Game
   def initialize
     @secret_code = Code.new
+    @game_board = Board.new
   end
 
   def play
@@ -21,5 +22,7 @@ class Game
     # p code_guess.frequencies
 
     Code.validate('abbe').feedback( Code.validate('beeb'))
+
+    @game_board.display
   end
 end

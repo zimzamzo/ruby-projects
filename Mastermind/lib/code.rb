@@ -65,4 +65,8 @@ class Code
   def display
     p @code
   end
+
+  def to_s
+    @code.join(' | ')
+  end
 end
