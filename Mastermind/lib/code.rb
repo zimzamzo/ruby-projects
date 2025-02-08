@@ -2,11 +2,19 @@ class Code
   CODE_VALUES = %w[A B C D E F].freeze
   CODE_LENGTH = 4
 
-  # protected
-  attr_accessor :code, :frequencies
+  private
+
+  attr_writer :code
+  attr_accessor :frequencies
+
+  protected 
+  
+  attr_reader :code
+
+  public
 
   def initialize(arr = nil)
-    @code = Array.new(4)
+    @code = Array.new(CODE_LENGTH)
 
     # for empty initializations, make random
     if arr.nil?
@@ -55,15 +63,10 @@ class Code
   def self.validate(string)
     # translate string to array of uppercase characters
     arr = string.split('').map(&:upcase)
-
+    
     return Code.new(arr) if arr.all? { |v| CODE_VALUES.include?(v) } &&
                             arr.length == CODE_LENGTH
-
     false
-  end
-
-  def display
-    p @code
   end
 
   def to_s
