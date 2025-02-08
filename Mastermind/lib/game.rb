@@ -2,29 +2,52 @@ require_relative 'board'
 require_relative 'code'
 
 class Game
+  NUM_TURNS = 12
+
   def initialize
     @secret_code = Code.new
     @game_board = Board.new
   end
 
   def play
-    p @secret_code.code
-    codes = ['h7dd8', 'wdd113', 'fedd', '1122', '^$ff', 'john', 'abbe', 'kllm', 'bdcc']
     
-    codes.map { |s| Code.validate(s) }.filter { |v| v }.each do |c|
-      @game_board.add_round(c, c.feedback(@secret_code))
+    won = false
+
+    puts <<~TEXT 
+      Playing Mastermind
+
+      Your job is to guess the secret in #{NUM_TURNS} or fewer rounds!
+      Codes can include these characters: #{Code::CODE_VALUES.join('')}
+      And will contain #{Code::CODE_LENGTH} of these characters.
+
+      Feedback is given as filled or empty circles.
+      ● means some character is exactly correct in its position.
+      ◯ means some character is part of the code but in the wrong position.
+      Feedback is unordered.
+
+      The computer has selected a secret code.
+
+    TEXT
+
+    NUM_TURNS.times do
+      puts 'What is your guess? (no spaces)'
+      guess_code = nil
+      guess_code = Code.validate(gets.chomp) until guess_code
+      
+      feedback = guess_code.feedback(@secret_code)
+
+      @game_board.add_round(guess_code, feedback)
+
+      @game_board.display
+      
+      if feedback[0] == Code::CODE_LENGTH
+        won = true
+        break
+      end
     end
 
-    # puts 'Provide a valid code'
-    # code_guess = false
+    puts 'You win! :)' if won
 
-    # code_guess = Code.validate(gets.chomp) until code_guess
-
-    # code_guess.display
-    # p code_guess.frequencies
-
-    # Code.validate('abbe').feedback(Code.validate('beeb'))
-
-    @game_board.display
+    puts "You did not win. :( The secret code was #{@secret_code}." unless won
   end
 end
