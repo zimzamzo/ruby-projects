@@ -11,7 +11,9 @@ class Game
     p @secret_code.code
     codes = ['h7dd8', 'wdd113', 'fedd', '1122', '^$ff', 'john', 'abbe', 'kllm', 'bdcc']
     
-    codes.map { |s| Code.validate(s) }.filter { |v| v }.each { |c| p c.feedback(@secret_code) }
+    codes.map { |s| Code.validate(s) }.filter { |v| v }.each do |c|
+      @game_board.add_round(c, c.feedback(@secret_code))
+    end
 
     # puts 'Provide a valid code'
     # code_guess = false
@@ -21,7 +23,7 @@ class Game
     # code_guess.display
     # p code_guess.frequencies
 
-    Code.validate('abbe').feedback( Code.validate('beeb'))
+    # Code.validate('abbe').feedback(Code.validate('beeb'))
 
     @game_board.display
   end

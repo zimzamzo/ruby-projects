@@ -54,12 +54,12 @@ class Code
   # else returns false
   def self.validate(string)
     # translate string to array of uppercase characters
-    arr = string.split('').map { |v| v.upcase }
+    arr = string.split('').map(&:upcase)
 
     return Code.new(arr) if arr.all? { |v| CODE_VALUES.include?(v) } &&
                             arr.length == CODE_LENGTH
 
-    return false
+    false
   end
 
   def display
@@ -67,6 +67,6 @@ class Code
   end
 
   def to_s
-    @code.join(' | ')
+    @code.join(' ')
   end
 end
