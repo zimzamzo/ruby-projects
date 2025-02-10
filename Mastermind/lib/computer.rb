@@ -12,11 +12,12 @@ class ComputerCodebreaker
     new_guess = nil
     while keep_trying
       new_guess = Array.new(Code::CODE_LENGTH).map { |_| Code::CODE_VALUES.sample }
-      keep_trying = false if guess_history.all? do |old_guess| 
+      keep_trying = false if guess_history == [] ||
+                             guess_history.all? do |old_guess| 
                                match_feedback?(old_guess, new_guess)
                              end
     end
-    new_guess
+    Code.new(new_guess)
   end
 
   def match_feedback?(old_info, new_code)
@@ -35,39 +36,23 @@ class ComputerCodebreaker
   end
 
   def shares_values(first, second)
-
+    first.reduce(0) do |acc, val|
+      if second.count(val) > 0
+        second.delete_at(second.index(val))
+        acc + 1
+      else
+        acc
+      end
+    end
   end
 end
 
-puts ComputerCodebreaker.new.make_guess
+puts 'play'
 
+secret_code = Code.new
+game_board = Board.new
+computer = ComputerCodebreaker.new
 
-# 
-# secret ccda
-# guess 
-# abcd 0 3 (A)
-# aadd 1 1
-# bcbd 1 1
-# bacc 0 3
-# acac 1 2
-# 
-# freq secret 1 0 2 1
-# freq guesses
-# 1 1 1 1
-# 2 0 0 2
-# 0 2 1 1
-# 1 1 2 0
-# 2 0 2 0
-# 
-# guess def 
-# A1 1 -1 -1 1
-# A2 -1 1 1 -1
-# A3 0 0 1 -1
-# A4 
-# 
-# remove 0s
-#  1 1
-#  1 0 0
-#  0 0 1
-#  1 1
-# 
+guess = computer.make_guess
+until 
+
