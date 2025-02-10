@@ -1,9 +1,11 @@
 class Board
   private
 
-  attr_accessor :board
+  attr_writer :board
   
   public
+
+  attr_reader :board
   
   def initialize
     @board = []
