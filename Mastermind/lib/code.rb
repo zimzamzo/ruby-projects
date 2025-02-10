@@ -1,17 +1,15 @@
 class Code
   CODE_VALUES = %w[A B C D E F].freeze
-  CODE_LENGTH = 4
+  CODE_LENGTH = 6
 
   private
 
   attr_writer :code
   attr_accessor :frequencies
 
-  protected 
+  public
   
   attr_reader :code
-
-  public
 
   def initialize(arr = nil)
     @code = Array.new(CODE_LENGTH)
