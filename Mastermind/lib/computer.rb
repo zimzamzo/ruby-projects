@@ -14,17 +14,15 @@ class ComputerCodebreaker
 
   def make_guess
     guess_history = @board.board
-    keep_trying = true
     new_guess = nil
-    while keep_trying
-      @attempt += 1
+    loop do
       # random
       new_guess = Array.new(Code::CODE_LENGTH).map { |_| Code::CODE_VALUES.sample }
       # stop IF first guess OR matches ALL prior feedback
-      keep_trying = false if guess_history == [] ||
-                             guess_history.all? do |old_guess_info| 
-                               match_feedback?(old_guess_info, new_guess)
-                             end
+      break if guess_history == [] ||
+               guess_history.all? do |old_guess_info| 
+                 match_feedback?(old_guess_info, new_guess)
+               end
     end
     Code.new(new_guess)
   end
@@ -67,36 +65,18 @@ class ComputerCodebreaker
   end
 end
 
-# puts 'play'
-LOOPS = 100
+puts 'play'
 
-avg = 0
-start_t = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+secret_code = Code.new
+game_board = Board.new
+computer = ComputerCodebreaker.new(game_board)
 
-LOOPS.times do
-  secret_code = Code.new
-  # secret_code = Code.validate('aaaaaa')
-  game_board = Board.new
-  computer = ComputerCodebreaker.new(game_board)
-
-  # puts secret_code.to_s + ' is secret code'
-  feedback = []
-  until feedback[0] == Code::CODE_LENGTH
-    guess = computer.make_guess
-    feedback = guess.feedback(secret_code)
-    game_board.add_round(guess, feedback)
-    # game_board.display
-  end
-  # puts 'considered ' + computer.attempt.to_s + ' guesses'
-  avg += computer.attempt / LOOPS
-  # sleep(0.15)
+feedback = []
+# guess = nil
+until feedback[0] == Code::CODE_LENGTH
+  guess = computer.make_guess
+  feedback = guess.feedback(secret_code)
+  game_board.add_round(guess, feedback)
+  game_board.display
 end
 
-puts 'average guesses ' + avg.to_s
-
-end_t = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-
-diff = end_t - start_t
-
-puts "time #{diff} seconds"
-puts "per game #{diff/LOOPS} seconds"

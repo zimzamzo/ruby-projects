@@ -64,6 +64,7 @@ class Code
     
     return Code.new(arr) if arr.all? { |v| CODE_VALUES.include?(v) } &&
                             arr.length == CODE_LENGTH
+                            
     false
   end
 
