@@ -4,7 +4,6 @@
 require_relative 'board'
 require_relative 'code'
 
-
 class ComputerCodebreaker
   attr_accessor :board, :attempt
   
@@ -38,7 +37,6 @@ class ComputerCodebreaker
 
     shares_positions(old_code, new_code) == old_positions_correct &&
       shares_values(old_code, new_code) >= old_values_correct
-      shares_values(old_code, new_code) >= old_values_correct
   end
 
   # how many values in exact same positions
@@ -56,10 +54,7 @@ class ComputerCodebreaker
   # int
   def shares_values(first, second)
     second_copy = second.dup
-    second_copy = second.dup
     first.reduce(0) do |acc, val|
-      if second_copy.count(val) > 0
-        second_copy.delete_at(second_copy.index(val))
       if second_copy.count(val) > 0
         second_copy.delete_at(second_copy.index(val))
         acc + 1
@@ -74,7 +69,6 @@ puts 'play'
 
 secret_code = Code.new
 game_board = Board.new
-computer = ComputerCodebreaker.new(game_board)
 computer = ComputerCodebreaker.new(game_board)
 
 feedback = []
