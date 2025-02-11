@@ -1,6 +1,6 @@
 class Code
   CODE_VALUES = %w[A B C D E F].freeze
-  CODE_LENGTH = 4
+  CODE_LENGTH = 6
 
   private
 
